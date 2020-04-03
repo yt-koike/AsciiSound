@@ -55,13 +55,45 @@ fprintf(wav_fp,"data");
 x_print4(wav_fp,filesize-126);
 
 unsigned int buf;
-int asodata;
-for(unsigned int i=0;i<data_N;i++){
-fscanf(aso_fp,"%d",&asodata);
-if(bit==8)asodata+=127;
-printf("%d\n",asodata);
-fwrite(&asodata,byte,1,wav_fp);
+if(MorS=='M'){
+	int asodata;
+	for(unsigned int i=0;i<data_N;i++){
+		fscanf(aso_fp,"%d",&asodata);
+		if(byte==1){
+		asodata+=127;
+		fwrite(&asodata,1,1,wav_fp);
+		}else if(byte==2){
+		int asodata1,asodata2;
+		asodata1=asodata&(0xff<<8)>>8;
+		asodata2=asodata&(0xff);
+		fwrite(&asodata1,1,1,wav_fp);
+		fwrite(&asodata2,1,1,wav_fp);
+		}
+	}
+}else if(MorS=='S'){
+	int asodataL,asodataR;
+	for(unsigned int i=0;i<data_N;i++){
+		fscanf(aso_fp,"%d %d",&asodataL,&asodataR);
+		if(byte==1){
+		asodataL+=127;
+		fwrite(&asodataL,1,1,wav_fp);
+		asodataR+=127;
+		fwrite(&asodataR,1,1,wav_fp);
+		}else if(byte==2){
+		int asodataL1,asodataL2;//LEFT
+		asodataL1=asodataL&(0xff<<8)>>8;
+		asodataL2=asodataL&(0xff);
+		fwrite(&asodataL1,1,1,wav_fp);
+		fwrite(&asodataL2,1,1,wav_fp);
+		int asodataR1,asodataR2;//RIGHT
+		asodataR1=asodataR&(0xff<<8)>>8;
+		asodataR2=asodataR&(0xff);
+		fwrite(&asodataR1,1,1,wav_fp);
+		fwrite(&asodataR2,1,1,wav_fp);
+		}
+	}
 }
+
 
 fclose(aso_fp);
 fclose(wav_fp);
