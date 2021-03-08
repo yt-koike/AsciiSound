@@ -2,10 +2,10 @@
 int main(int args, char **argv)
 {
     if (args >= 3)
-        ASO2WAV(argv[1], argv[2]);
+        WAV2ASO(argv[1], argv[2]);
     else if (args == 2)
-        ASO2WAV(argv[1], "output.wav");
+        WAV2ASO(argv[1], "output.aso");
     else
-        ASO2WAV("test1.aso", "output.wav");
+        WAV2ASO("test1.wav", "output.aso");
     return 0;
 }
