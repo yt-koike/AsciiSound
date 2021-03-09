@@ -1,7 +1,0 @@
-S #Monoral or Stereo
-16 #bit
-44000 # Hz data/s
-2 #data number
--1024 0 #L R
--1023 0 #L R
-
