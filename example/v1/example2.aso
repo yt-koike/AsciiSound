@@ -1,9 +1,0 @@
-M #Monoral or Stereo
-8 #used bits per data(if 0,a number of bits which can contain every datas will be calculated)
-44000 # Hz data/s
-5 #Data number
--127 #Datas(None=0)
--127
--126
--125
--124
